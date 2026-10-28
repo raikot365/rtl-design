@@ -1,0 +1,23 @@
+# Python virtual environments
+.venv/
+.venv-*/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Simulation build artifacts
+sim_build/
+results.xml
+
+# Waveform files
+*.fst
+*.vcd
+*.ghw
+
+# Editor and operating system files
+.vscode/
+.DS_Store
+Thumbs.db

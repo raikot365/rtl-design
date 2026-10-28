@@ -301,3 +301,183 @@ endmodule
 	// 		Q <= q_in;
 	// 	end
 	// end
+
+
+
+// Consider the n-bit shift register circuit shown below:
+// See https://hdlbits.01xz.net/wiki/Exams/2014_q4a
+// Write a Verilog module named top_module for one stage of this circuit, including both the flip-flop and multiplexers.
+
+// ============================================================
+//                    MODULO: 2-mux + dff
+//               
+// ============================================================
+
+// module top_module (
+//     input clk,
+//     input w, R, E, L,
+//     output Q
+// );
+
+// 	always @(posedge clk) begin
+// 		if (L) Q <= R;
+// 		else begin
+// 			if (E) Q <= w;
+// 			else Q <= Q;
+// 		end
+// 	end
+
+// endmodule
+
+
+// Given the finite state machine circuit as shown, assume that the D flip-flops are initially reset to zero before the machine begins. Build this circuit.
+// See https://hdlbits.01xz.net/wiki/Exams/ece241_2014_q4
+
+
+// ============================================================
+//                    MODULO: dff and gates
+//               
+// ============================================================
+
+// module top_module (
+//     input clk,
+//     input x,
+//     output z
+// );
+//     // 1. Declaramos los cables para las salidas Q y Q_negada de cada flip-flop
+//     wire q1;
+//     wire q2;
+//     wire q3;
+
+//     // 2. Cables para las entradas D que van a las compuertas previas
+//     wire d1, d2, d3;
+
+//     // 3. Lógica combinacional de las compuertas de entrada (antes de los D)
+//     assign d1 = x ^ q1;         // Compuerta XOR superior
+//     assign d2 = x & ~q2;     // Compuerta AND del medio
+//     assign d3 = x | ~q3;     // Compuerta OR inferior
+
+//     // 4. Instanciación de los 3 Flip-Flops D 
+//     // (Asumimos que tu módulo dff tiene puertos: clk, d, q y q_bar)
+//     dff ff1 (
+//         .clk(clk), 
+//         .d(d1), 
+//         .q(q1), 
+//     );
+
+//     dff ff2 (
+//         .clk(clk), 
+//         .d(d2), 
+//         .q(q2), 
+//     );
+
+//     dff ff3 (
+//         .clk(clk), 
+//         .d(d3), 
+//         .q(q3), 
+//     );
+
+//     // 5. Compuerta NOR final que genera la salida Z
+//     assign z = ~(q1 | q2 | q3);
+
+// endmodule
+
+
+// ============================================================
+//                    MODULO: JFF flip-flop
+//               
+// ============================================================
+
+// A JK flip-flop has the below truth table. Implement a JK flip-flop with only a D-type flip-flop and gates. Note: Qold is the output of the D flip-flop before the positive clock edge.
+
+// J	K	Q
+// 0	0	Qold
+// 0	1	0
+// 1	0	1
+// 1	1	~Qold
+
+// module top_module (
+//     input clk,
+//     input j,
+//     input k,
+//     output Q); 
+	
+//     always @( posedge clk) begin
+//         case ({j,k})
+//             2'b00: Q <= Q;
+//             2'b01: Q <= 1'b0;
+//             2'b10: Q <= 1'b1;
+//             2'b11: Q <= ~Q;
+//         endcase
+//     end
+// endmodule
+
+
+// ============================================================
+//                    MODULO: Edge detection
+//               		bit-to-bit
+// ============================================================
+
+// For each bit in an 8-bit vector, detect when the input signal changes from 0 in one clock cycle to 1 the next (similar to positive edge detection). The output bit should be set the cycle after a 0 to 1 transition occurs.
+
+// Here are some examples. For clarity, in[1] and pedge[1] are shown separately.
+// See https://hdlbits.01xz.net/wiki/Edgedetect
+
+// module top_module (
+//     input clk,
+//     input [7:0] in,
+//     output reg [7:0] pedge
+// );
+//     reg [7:0] last;
+
+//     always @(posedge clk) begin
+//         // Guardamos el valor actual para usarlo como referencia en el siguiente ciclo
+//         last <= in;
+        
+//         // Detectamos el flanco positivo bit a bit: 
+//         // bits que ahora son 1 (in) y antes eran 0 (~last)
+//         pedge <= in & ~last;
+//     end
+
+// endmodule
+
+// Mi primera solucion fue tomando todo el vector pero esto no es correcto porque no detecta bit a bit.
+// module top_module (
+//     input clk,
+//     input [7:0] in,
+//     output [7:0] pedge
+
+// );
+
+//     reg [7:0] last;
+//     always @(posedge clk) begin
+//         last <= in;
+//         if(in != 8'h00 & in != last)
+//         pedge <= in;
+//         else pedge <= 8'h00;
+//     end
+
+// endmodule
+
+
+// ============================================================
+//                    MODULO: Edgedetect2
+//               		bit-to-bit
+// ============================================================
+
+// For each bit in an 8-bit vector, detect when the input signal changes from one clock cycle to the next (detect any edge). The output bit should be set the cycle after a 0 to 1 transition occurs.
+
+// Here are some examples. For clarity, in[1] and anyedge[1] are shown separately
+// See https://hdlbits.01xz.net/wiki/Edgedetect2
+
+// module top_module (
+//     input clk,
+//     input [7:0] in,
+//     output [7:0] anyedge
+// );
+//     reg [7:0]last;
+//     always @(posedge clk) begin
+//         last <= in;
+//         anyedge <= in ^ last;
+//     end
+// endmodule
