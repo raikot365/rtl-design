@@ -3,7 +3,7 @@
 
 // ============================================================
 //                    MODULO: D flip-flop
-//                    
+//
 // ============================================================
 
 // D flip-flop https://hdlbits.01xz.net/wiki/Dff
@@ -11,19 +11,19 @@ module top_module(
 	input clk,
 	input d,
 	output reg q);
-	
+
 	// Use non-blocking assignment for edge-triggered always blocks
 	always @(posedge clk)
 		q <= d;
 
 	// Undefined simulation behaviour can occur if there is more than one edge-triggered
 	// always block and blocking assignment is used. Which always block is simulated first?
-	
+
 endmodule
 
 // ============================================================
 //                    MODULO: 8-bit D flip-flop
-//                    
+//
 // ============================================================
 
 // for a 8-bit D flip-flop
@@ -31,11 +31,11 @@ endmodule
 // 	input clk,
 // 	input [7:0] d,
 // 	output reg [7:0] q);
-	
+
 // 	// Because q is a vector, this creates multiple DFFs.
 // 	always @(posedge clk)
 // 		q <= d;
-	
+
 // endmodule
 
 // 8-bit D flip-flop with synchronous reset
@@ -52,7 +52,7 @@ endmodule
 // endmodule
 
 // ============================================================
-//                    MODULO: 8-bit D flip-flop 
+//                    MODULO: 8-bit D flip-flop
 //                    synchronous reset to 0x34
 // ============================================================
 
@@ -70,7 +70,7 @@ endmodule
 // endmodule
 
 // ============================================================
-//                    MODULO: 8-bit D flip-flop 
+//                    MODULO: 8-bit D flip-flop
 //                    asynchronous reset
 // ============================================================
 
@@ -92,7 +92,7 @@ endmodule
 // 	input [7:0] d,
 // 	input areset,
 // 	output reg [7:0] q);
-	
+
 // 	// The only difference in code compared to synchronous reset is in the sensitivity list.
 // 	always @(posedge clk, posedge areset)
 // 		if (areset)
@@ -103,16 +103,16 @@ endmodule
 
 // 	// In Verilog, the sensitivity list looks strange. The FF's reset is sensitive to the
 // 	// *level* of areset, so why does using "posedge areset" work?
-// 	// To see why it works, consider the truth table for all events that change the input 
+// 	// To see why it works, consider the truth table for all events that change the input
 // 	// signals, assuming clk and areset do not switch at precisely the same time:
-	
+
 // 	//  clk		areset		output
 // 	//   x		 0->1		q <= 0; (because areset = 1)
 // 	//   x		 1->0		no change (always block not triggered)
 // 	//  0->1	   0		q <= d; (not resetting)
 // 	//  0->1	   1		q <= 0; (still resetting, q was 0 before too)
 // 	//  1->0	   x		no change (always block not triggered)
-	
+
 // endmodule
 
 // ============================================================
@@ -140,14 +140,14 @@ endmodule
 //             2'b11: q <= resetn ? d : 16'h0000;
 //         endcase
 //     end
-           	
+
 
 // endmodule
 
 
 // ============================================================
 //                    MODULO: D - latch
-//                    
+//
 // ============================================================
 
 // Implement the following circuit:
@@ -164,10 +164,10 @@ endmodule
 // - A D-latch acts like a wire (or non-inverting buffer) when enabled, and preserves the current value when disabled.
 
 // module top_module (
-//     input d, 
+//     input d,
 //     input ena,
 //     output q);
-	
+
 //     always @(*) begin
 //         q <= ena ? d : q;
 //     end
@@ -188,10 +188,10 @@ endmodule
 
 // module top_module (
 //     input clk,
-//     input d, 
+//     input d,
 //     input ar,   // asynchronous reset
 //     output q);
-    
+
 //     always @(posedge clk, posedge ar) begin
 //         q <= ar ? 1'b0 : d;
 //     end
@@ -213,7 +213,7 @@ endmodule
 
 // module top_module (
 //     input clk,
-//     input d, 
+//     input d,
 //     input r,   // synchronous reset
 //     output q);
 //      always @(posedge clk) begin
@@ -243,7 +243,7 @@ endmodule
 
 // module top_module (
 //     input clk,
-//     input in, 
+//     input in,
 //     output out);
 
 //     always @(posedge clk) begin
@@ -254,7 +254,7 @@ endmodule
 
 // ============================================================
 //       MODULO: Taken from ECE253 2015 midterm question 5
-//                    
+//
 // ============================================================
 
 
@@ -310,7 +310,7 @@ endmodule
 
 // ============================================================
 //                    MODULO: 2-mux + dff
-//               
+//
 // ============================================================
 
 // module top_module (
@@ -336,7 +336,7 @@ endmodule
 
 // ============================================================
 //                    MODULO: dff and gates
-//               
+//
 // ============================================================
 
 // module top_module (
@@ -357,24 +357,24 @@ endmodule
 //     assign d2 = x & ~q2;     // Compuerta AND del medio
 //     assign d3 = x | ~q3;     // Compuerta OR inferior
 
-//     // 4. Instanciación de los 3 Flip-Flops D 
+//     // 4. Instanciación de los 3 Flip-Flops D
 //     // (Asumimos que tu módulo dff tiene puertos: clk, d, q y q_bar)
 //     dff ff1 (
-//         .clk(clk), 
-//         .d(d1), 
-//         .q(q1), 
+//         .clk(clk),
+//         .d(d1),
+//         .q(q1),
 //     );
 
 //     dff ff2 (
-//         .clk(clk), 
-//         .d(d2), 
-//         .q(q2), 
+//         .clk(clk),
+//         .d(d2),
+//         .q(q2),
 //     );
 
 //     dff ff3 (
-//         .clk(clk), 
-//         .d(d3), 
-//         .q(q3), 
+//         .clk(clk),
+//         .d(d3),
+//         .q(q3),
 //     );
 
 //     // 5. Compuerta NOR final que genera la salida Z
@@ -385,7 +385,7 @@ endmodule
 
 // ============================================================
 //                    MODULO: JFF flip-flop
-//               
+//
 // ============================================================
 
 // A JK flip-flop has the below truth table. Implement a JK flip-flop with only a D-type flip-flop and gates. Note: Qold is the output of the D flip-flop before the positive clock edge.
@@ -400,8 +400,8 @@ endmodule
 //     input clk,
 //     input j,
 //     input k,
-//     output Q); 
-	
+//     output Q);
+
 //     always @( posedge clk) begin
 //         case ({j,k})
 //             2'b00: Q <= Q;
@@ -433,8 +433,8 @@ endmodule
 //     always @(posedge clk) begin
 //         // Guardamos el valor actual para usarlo como referencia en el siguiente ciclo
 //         last <= in;
-        
-//         // Detectamos el flanco positivo bit a bit: 
+
+//         // Detectamos el flanco positivo bit a bit:
 //         // bits que ahora son 1 (in) y antes eran 0 (~last)
 //         pedge <= in & ~last;
 //     end
@@ -480,4 +480,72 @@ endmodule
 //         last <= in;
 //         anyedge <= in ^ last;
 //     end
+// endmodule
+
+
+// ============================================================
+//                    MODULO: Edgecapture
+//               		32-bit
+// ============================================================
+// For each bit in a 32-bit vector, capture when the input signal changes from 1 in one clock cycle to 0 the next. "Capture" means that the output will remain 1 until the register is reset (synchronous reset).
+
+// Each output bit behaves like a SR flip-flop: The output bit should be set (to 1) the cycle after a 1 to 0 transition occurs. The output bit should be reset (to 0) at the positive clock edge when reset is high. If both of the above events occur at the same time, reset has precedence. In the last 4 cycles of the example waveform below, the 'reset' event occurs one cycle earlier than the 'set' event, so there is no conflict here.
+
+// In the example waveform below, reset, in[1] and out[1] are shown again separately for clarity.
+//See https://hdlbits.01xz.net/wiki/Edgecapture
+// For this solution like the reset has priority there is an if to restart and an else to set the change.
+// Also use the last state to compare but if the state is set will not change because of the or operator.
+// module top_module (
+//     input clk,
+//     input reset,
+//     input [31:0] in,
+//     output [31:0] out
+// );
+//     reg [31:0] last;	
+//     always @(posedge clk) begin
+//         if(reset) out <= 0;
+//         else out <= ~in & last | out;
+//         last <= in;
+//     end
+// endmodule
+
+// ============================================================
+//                    MODULO: Dualedge
+//               		
+// ============================================================
+
+//You're familiar with flip-flops that are triggered on the positive edge of the clock, or negative edge of the clock. A dual-edge triggered flip-flop is triggered on both edges of the clock. However, FPGAs don't have dual-edge triggered flip-flops, and always @(posedge clk or negedge clk) is not accepted as a legal sensitivity list.
+
+// Build a circuit that functionally behaves like a dual-edge triggered flip-flop:
+// Se https://hdlbits.01xz.net/wiki/Dualedge
+
+// module top_module(
+// 	input clk,
+// 	input d,
+// 	output q);
+	
+// 	reg p, n;
+	
+// 	// A positive-edge triggered flip-flop
+//     always @(posedge clk)
+//         p <= d ^ n;
+        
+//     // A negative-edge triggered flip-flop
+//     always @(negedge clk)
+//         n <= d ^ p;
+    
+//     // Why does this work? 
+//     // After posedge clk, p changes to d^n. Thus q = (p^n) = (d^n^n) = d.
+//     // After negedge clk, n changes to d^p. Thus q = (p^n) = (p^d^p) = d.
+//     // At each (positive or negative) clock edge, p and n FFs alternately
+//     // load a value that will cancel out the other and cause the new value of d to remain.
+//     assign q = p ^ n;
+    
+    
+// 	// Can't synthesize this.
+// 	/*always @(posedge clk, negedge clk) begin
+// 		q <= d;
+// 	end*/
+    
+    
 // endmodule

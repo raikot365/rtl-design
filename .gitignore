@@ -21,3 +21,7 @@ results.xml
 .vscode/
 .DS_Store
 Thumbs.db
+
+notas.txt
+/01_rtl_fundamentals/example/*
+cocotb-annotations.md
