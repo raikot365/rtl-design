@@ -24,4 +24,14 @@ This repository documents my progress in digital hardware design, from fundament
 | GTKWave | Simulation waveform visualization |
 | Git / GitHub | Version control and project documentation |
 
+
 ![simulation](simulation.png)
+
+## Resources
+> These are some of the resources used in this repository
+
+|Resource|Description|
+|--------|-----------|
+|[HDLBits](https://hdlbits.01xz.net/wiki/Main_Page)|Online platform providing Verilog practice exercises and tutorials for digital logic design|
+|[Explore VLSI](https://www.youtube.com/@Explore_VLSI)| Youtube channel |
+|[Cocotb](https://docs.cocotb.org/en/stable/index.html)| Cocotb official documentation|
