@@ -25,3 +25,6 @@ Thumbs.db
 notas.txt
 /01_rtl_fundamentals/example/*
 cocotb-annotations.md
+
+# Verilator
+obj_dir/

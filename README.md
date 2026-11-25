@@ -35,3 +35,4 @@ This repository documents my progress in digital hardware design, from fundament
 |[HDLBits](https://hdlbits.01xz.net/wiki/Main_Page)|Online platform providing Verilog practice exercises and tutorials for digital logic design|
 |[Explore VLSI](https://www.youtube.com/@Explore_VLSI)| Youtube channel |
 |[Cocotb](https://docs.cocotb.org/en/stable/index.html)| Cocotb official documentation|
+|[Chip Verify](https://chipverify.com/)|Free VLSI courses and a professional-grade lab to build and run your designs.|
